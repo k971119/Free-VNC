@@ -20,16 +20,18 @@ namespace Free_VNC.screen
 
         #region 싱글톤 설정
         private static ScreenCapture instance;
-        private static readonly object padlock = new object();
 
         private Thread captureThread;
+
+        //싱글톤 직접 참조금지
         private ScreenCapture() { }
 
         public static ScreenCapture Instance
         {
             get
             {
-                lock (padlock)
+                //동시접근 금지
+                lock (instance)
                 {
                     if (instance == null)
                     {
